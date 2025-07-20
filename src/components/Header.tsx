@@ -1,9 +1,8 @@
-import { Link } from 'react-router-dom';
 import { FaBars, FaTimes, FaMusic, FaYoutube } from 'react-icons/fa';
 import styled, { keyframes } from 'styled-components';
 import { useState, useEffect } from 'react';
 
-// Animaciones mejoradas
+// Animaciones
 const neonPulse = keyframes`
   0%, 100% { 
     filter: drop-shadow(0 0 8px rgba(255, 0, 255, 0.7));
@@ -20,19 +19,19 @@ const textGlow = keyframes`
   50% { text-shadow: 0 0 12px #fff, 0 0 24px #ff00ff; }
 `;
 
-// Estilo mejorado con más personalidad
+// Estilos principales
 const HeaderWrapper = styled.header<{ $scrolled: boolean }>`
-  background: ${({ $scrolled }) => 
+  background: ${({ $scrolled }) =>
     $scrolled ? 'rgba(10, 10, 10, 0.98)' : 'rgba(20, 20, 20, 0.85)'};
-  border-bottom: ${({ $scrolled }) => 
+  border-bottom: ${({ $scrolled }) =>
     $scrolled ? '1px solid rgba(255, 0, 255, 0.6)' : 'none'};
   position: fixed;
   width: 100%;
   top: 0;
   z-index: 1000;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all 0.4s ease;
   backdrop-filter: blur(${({ $scrolled }) => ($scrolled ? '12px' : '8px')});
-  box-shadow: ${({ $scrolled }) => 
+  box-shadow: ${({ $scrolled }) =>
     $scrolled ? '0 4px 30px rgba(255, 0, 255, 0.25)' : 'none'};
 `;
 
@@ -46,7 +45,7 @@ const Container = styled.div`
   height: 80px;
 `;
 
-const LogoLink = styled(Link)`
+const LogoLink = styled.a`
   display: flex;
   align-items: center;
   text-decoration: none;
@@ -96,7 +95,7 @@ const Nav = styled.nav`
   }
 `;
 
-const NavLink = styled(Link)`
+const NavLink = styled.a`
   color: #eee;
   text-decoration: none;
   font-family: 'Bebas Neue', sans-serif;
@@ -141,12 +140,12 @@ const MobileMenu = styled.div<{ $isOpen: boolean }>`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all 0.5s ease;
   transform: ${({ $isOpen }) => ($isOpen ? 'translateX(0)' : 'translateX(-100%)')};
   opacity: ${({ $isOpen }) => ($isOpen ? '1' : '0')};
 `;
 
-const MobileNavLink = styled(Link)`
+const MobileNavLink = styled.a`
   color: #fff;
   text-decoration: none;
   font-family: 'Bebas Neue', sans-serif;
@@ -211,7 +210,6 @@ const QuickActions = styled.div`
   }
 `;
 
-// Modificamos ActionButton para que acepte tanto enlaces internos como externos
 const ActionButton = styled.a`
   color: #ddd;
   font-size: 1.6rem;
@@ -262,7 +260,7 @@ export default function Header() {
   return (
     <HeaderWrapper $scrolled={scrolled}>
       <Container>
-        <LogoLink to="/">
+        <LogoLink href="#inicio">
           <LogoImage src="/logo-removebg-preview.png" alt="STIXXY Logo" />
         </LogoLink>
 
@@ -271,23 +269,23 @@ export default function Header() {
         </MobileMenuButton>
 
         <Nav>
-          <NavLink to="/">INICIO</NavLink>
-          <NavLink to="/music">MÚSICA</NavLink>
-          <NavLink to="/shows">SHOWS</NavLink>
+          <NavLink href="#inicio">INICIO</NavLink>
+          <NavLink href="#media">MÚSICA</NavLink>
+          <NavLink href="#contacto">CONTACTO</NavLink>
         </Nav>
 
-        <QuickActions style={{ marginTop: '50px', gap: '40px' }}>
-          <ActionButton 
-            href="https://open.spotify.com/intl-es/artist/3L7AF0f57EByjqvZmi8PbR?si=k20n4_DkQ825S6wI5csyaA" 
-            target="_blank" 
+        <QuickActions>
+          <ActionButton
+            href="https://open.spotify.com/intl-es/artist/3L7AF0f57EByjqvZmi8PbR?si=k20n4_DkQ825S6wI5csyaA"
+            target="_blank"
             rel="noopener noreferrer"
             title="Spotify"
           >
             <FaMusic />
           </ActionButton>
-          <ActionButton 
-            href="https://www.youtube.com/channel/UCQaEIQhdnpFDuNSPLSlGBZw" 
-            target="_blank" 
+          <ActionButton
+            href="https://www.youtube.com/channel/UCQaEIQhdnpFDuNSPLSlGBZw"
+            target="_blank"
             rel="noopener noreferrer"
             title="YouTube"
           >
@@ -300,23 +298,23 @@ export default function Header() {
         <CloseMenuButton onClick={() => setIsMenuOpen(false)}>
           <FaTimes />
         </CloseMenuButton>
-        
-        <MobileNavLink to="/" onClick={() => setIsMenuOpen(false)}>INICIO</MobileNavLink>
-        <MobileNavLink to="/music" onClick={() => setIsMenuOpen(false)}>MÚSICA</MobileNavLink>
-        <MobileNavLink to="/shows" onClick={() => setIsMenuOpen(false)}>SHOWS</MobileNavLink>
-        
+
+        <MobileNavLink href="#inicio" onClick={() => setIsMenuOpen(false)}>INICIO</MobileNavLink>
+        <MobileNavLink href="#media" onClick={() => setIsMenuOpen(false)}>MÚSICA</MobileNavLink>
+        <MobileNavLink href="#contacto" onClick={() => setIsMenuOpen(false)}>CONTACTO</MobileNavLink>
+
         <QuickActions style={{ marginTop: '50px', gap: '40px' }}>
-          <ActionButton 
-            href="https://open.spotify.com/intl-es/artist/3L7AF0f57EByjqvZmi8PbR?si=k20n4_DkQ825S6wI5csyaA" 
-            target="_blank" 
+          <ActionButton
+            href="https://open.spotify.com/intl-es/artist/3L7AF0f57EByjqvZmi8PbR?si=k20n4_DkQ825S6wI5csyaA"
+            target="_blank"
             rel="noopener noreferrer"
             title="Spotify"
           >
             <FaMusic />
           </ActionButton>
-          <ActionButton 
-            href="https://www.youtube.com/channel/UCQaEIQhdnpFDuNSPLSlGBZw" 
-            target="_blank" 
+          <ActionButton
+            href="https://www.youtube.com/channel/UCQaEIQhdnpFDuNSPLSlGBZw"
+            target="_blank"
             rel="noopener noreferrer"
             title="YouTube"
           >
